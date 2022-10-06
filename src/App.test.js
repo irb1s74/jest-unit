@@ -1,11 +1,14 @@
 import {render, screen, fireEvent} from "@testing-library/react";
 import App from "./App";
 import userEvent from "@testing-library/user-event";
+import {MemoryRouter} from "react-router-dom";
 
 
 describe('app', () => {
     test("render react", async () => {
-        render(<App/>)
+        render(<MemoryRouter>
+            <App/>
+        </MemoryRouter>)
         screen.debug()
         const linkElement = await screen.findByText(/data/i);
         expect(linkElement).toBeInTheDocument()
@@ -13,7 +16,9 @@ describe('app', () => {
     })
 
     test("toggle btn", () => {
-        render(<App/>)
+        render(<MemoryRouter>
+            <App/>
+        </MemoryRouter>)
         const btn = screen.getByTestId("toggle-btn");
         expect(screen.queryByTestId("toggled-item")).toBeNull();
         fireEvent.click(btn)
@@ -23,7 +28,9 @@ describe('app', () => {
     })
 
     test("change input value", () => {
-        render(<App/>)
+        render(<MemoryRouter>
+            <App/>
+        </MemoryRouter>)
         const input = screen.getByTestId("input");
         expect(screen.queryByTestId("input-value")).toContainHTML("")
         // fireEvent.input(input, {
